@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "455403851955",
+    "project_id": "chatdroid-efe52",
+    "storage_bucket": "chatdroid-efe52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:455403851955:android:a41760ab2f68242d99a0c6",
+        "android_client_info": {
+          "package_name": "com.example.chatdroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJOJgD-mQarfwvGklz3JQ_WYjIYs1a5Po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
