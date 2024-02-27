@@ -3,6 +3,7 @@ package com.example.chatdroid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +35,8 @@ public class SignUpActivity extends AppCompatActivity {
     String emailPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
 
 FirebaseAuth mAuth;
+FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,24 @@ FirebaseAuth mAuth;
         edtConfirmPassword = findViewById(R.id.edtSignUpConfirmPassword);
         progressBar = findViewById(R.id.signUpProgressBar);
         btnSignUp = findViewById(R.id.btnSignUp);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        txtSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this , LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,17 +90,35 @@ FirebaseAuth mAuth;
         btnSignUp.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.createUserWithEmailAndPassword(strEmail , strPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                Map<String,Object> user = new HashMap<>();
-                user.put("FullName" , strFullName);
-                user.put("Email" , strEmail);
-                user.put("Mobile" , strMobile);
+        mAuth.createUserWithEmailAndPassword(strEmail , strPassword ).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        Map<String , Object > user = new  HashMap<>();
+                        user.put("FullName" , strFullName);
+                        user.put("Email" , strEmail);
+                        user.put("Mobile" , strMobile);
 
 
+                        db.collection("Users")
+                                .document(strEmail)
+                                .set(user)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() { // Corrected typo here
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                        startActivity(intent);
 
-            }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(SignUpActivity.this, "Error - " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+                    }
+
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -100,7 +141,7 @@ private boolean isValidate(){
 
     }
 
-    if (strEmail.matches(emailPattern)){
+    if (!strEmail.matches(emailPattern)){
         edtEmail.setError("enter a valid email id");
         return false;
 

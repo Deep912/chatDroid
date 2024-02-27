@@ -15,5 +15,15 @@
         <item name="android:statusBarColor">?attr/colorOnPrimary</item>
     </style>
 
+    <!---Custom Theme-->
+    <style name="Theme.ChatGPTTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/background</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+    </style>
+
 
 </resources>
