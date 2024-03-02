@@ -58,5 +58,10 @@ dependencies {
     implementation("com.google.android.gms:play-services-gcm:17.0.0")
 
 
+    //okhttp
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+
 
 }
