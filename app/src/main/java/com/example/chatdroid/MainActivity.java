@@ -61,19 +61,19 @@ public class MainActivity extends AppCompatActivity {
         txtWelcome = findViewById(R.id.txtWelcome);
         edtMessage = findViewById(R.id.message_edit_text);
         btnSend = findViewById(R.id.send_btn);
-        btnLogout = findViewById(R.id.btnLogout);
+//        btnLogout = findViewById(R.id.btnLogout);
 
         mAuth = FirebaseAuth.getInstance();
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mAuth.signOut();
+//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
         messageList = new ArrayList<>();
 
@@ -135,14 +135,14 @@ public class MainActivity extends AppCompatActivity {
         RequestBody body = RequestBody.create(jsonObject.toString(),JSON);
         Request request = new Request.Builder()
                 .url("https://api.openai.com/v1/completions")
-                .header("Authorization", "Bearer API HERE")
+                .header("Authorization", "Bearer ")
                 .post(body)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-            addResponse("failed to load due to " + e.getMessage());
+                addResponse("failed to load due to " + e.getMessage());
             }
 
             @Override
