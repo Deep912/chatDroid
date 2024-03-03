@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView txtSignUp, txtForgotPassword;
     EditText edtEmail, edtPassword;
-    Button btnSignIn;
+        Button btnSignIn;
     ProgressBar progressBar;
     String strEmail , strPassword;
     FirebaseAuth mAuth;
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
+
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {

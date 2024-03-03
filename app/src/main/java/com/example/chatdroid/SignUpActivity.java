@@ -97,6 +97,7 @@ FirebaseFirestore db;
                         user.put("FullName" , strFullName);
                         user.put("Email" , strEmail);
                         user.put("Mobile" , strMobile);
+                        user.put("Password", strPassword);
 
 
                         db.collection("Users")
@@ -105,7 +106,7 @@ FirebaseFirestore db;
                                 .addOnSuccessListener(new OnSuccessListener<Void>() { // Corrected typo here
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                         startActivity(intent);
 
                                     }
